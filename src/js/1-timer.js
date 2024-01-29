@@ -14,6 +14,7 @@ const refs = {
 
 let selectedDate = null;
 let timerInterval = null; 
+refs.startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -47,21 +48,20 @@ const timer = {
     }
     refs.datetimePicker.disabled = true;
 
-    timerInterval = setInterval(() => {
-      const currentTime = Date.now();
-      const deltaTime = selectedDate - currentTime;
+   timerInterval = setInterval(() => {
+  const currentTime = Date.now();
+  const deltaTime = selectedDate - currentTime;
 
-      if (deltaTime <= 0) {
-        clearInterval(timerInterval);
-        timerInterval = null; 
-        updateTimer({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        refs.datetimePicker.disabled = false;
-        refs.startBtn.disabled = false;
-      } else {
-        const timeComponents = convertMs(deltaTime);
-        updateTimer(timeComponents);
-      }
-    }, 1000);
+  if (deltaTime <= 0) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    updateTimer({ days: '00', hours: '00', minutes: '00', seconds: '00' });
+    refs.datetimePicker.disabled = false;
+  } else {
+    const timeComponents = convertMs(deltaTime);
+    updateTimer(timeComponents);
+  }
+}, 1000);
   },
 };
 
